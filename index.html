@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPSU Udaipur Championship | API Testing War Arena</title>
+  <meta name="description" content="Complete API Testing War Arena guide with Postman, REST APIs, automation basics, and placement-ready practice.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow glow-a" aria-hidden="true"></div>
+  <div class="bg-glow glow-b" aria-hidden="true"></div>
+
+  <header class="hero section reveal">
+    <div class="chip">SPSU UDAIPUR CHAMPIONSHIP</div>
+    <h1>API Testing War Arena</h1>
+    <p class="subtitle">Postman - REST APIs - HTTP Methods - Testing - Automation Basics</p>
+    <div class="hero-actions">
+      <button id="themeToggle" class="ghost-btn" aria-label="Switch theme">Switch to Night Mode</button>
+    </div>
+
+    <div class="hero-meta">
+      <div class="meta-card">
+        <h3>Industry Use Case</h3>
+        <p>Campus Placement Drive Management API</p>
+      </div>
+      <div class="meta-card">
+        <h3>Mission</h3>
+        <p>Test a REST API like a QA Engineer and Backend Developer</p>
+      </div>
+      <div class="meta-card">
+        <h3>Career Outcome</h3>
+        <p>Build API testing evidence for projects, interviews, and placements</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="section sticky-nav reveal" aria-label="Primary">
+    <a href="#what-is-api">What Is API</a>
+    <a href="#rest-language">REST</a>
+    <a href="#live-api-check">Live API Check</a>
+    <a href="#api-playground">API Playground</a>
+    <a href="#postman-setup">Postman</a>
+    <a href="#requests">Requests</a>
+    <a href="#status-codes">Status Codes</a>
+    <a href="#automation">Automation</a>
+    <a href="#negative-testing">Negative Testing</a>
+    <a href="#industry-pack">Industry Pack</a>
+    <a href="#interview">Interview</a>
+    <a href="#checklist">Checklist</a>
+  </nav>
+
+  <main>
+    <section id="challenge" class="section card reveal">
+      <h2>Challenge Statement</h2>
+      <p>
+        You are part of a software team building a Campus Placement Drive Management System. Before the frontend goes live,
+        backend APIs must be tested for correct data, correct status codes, and correct error handling.
+      </p>
+      <p><strong>Learning Framework:</strong> 10% Concept - 90% Hands-On</p>
+    </section>
+
+    <section id="live-api-check" class="section card reveal live-check-card">
+      <h2>Live API Validation Console</h2>
+      <p>
+        Run all key API checks directly from this page. This validates GET, POST, PATCH, DELETE, and negative scenarios
+        against JSONPlaceholder with status code and response time.
+      </p>
+      <div class="live-actions">
+        <button id="runApiChecks" class="cta pulse">Run All API Checks</button>
+        <button id="downloadApiReport" class="ghost-btn">Download JSON Report</button>
+        <button id="printApiReport" class="ghost-btn">Export PDF (Print)</button>
+        <p id="apiCheckSummary" class="copy-status" aria-live="polite"></p>
+      </div>
+      <div id="apiCheckResults" class="result-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="api-playground" class="section card reveal playground-card">
+      <h2>Interactive API Playground</h2>
+      <p>Use this mini Postman panel to test any endpoint with custom method, URL, headers, and JSON body.</p>
+      <div class="playground-grid">
+        <div class="terminal-head" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="field-row">
+          <label for="playMethod">Method</label>
+          <select id="playMethod">
+            <option>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>PATCH</option>
+            <option>DELETE</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <label for="playUrl">URL</label>
+          <input id="playUrl" type="url" value="https://jsonplaceholder.typicode.com/posts/1" placeholder="Enter API endpoint URL">
+        </div>
+        <div class="field-row">
+          <label for="playHeaders">Headers (JSON object)</label>
+          <textarea id="playHeaders" rows="4" spellcheck="false">{
+  "Content-Type": "application/json"
+}</textarea>
+        </div>
+        <div class="field-row">
+          <label for="playBody">Body (JSON)</label>
+          <textarea id="playBody" rows="7" spellcheck="false">{
+  "title": "Live Playground Request",
+  "body": "Sent from SPSU API Playground",
+  "userId": 101
+}</textarea>
+        </div>
+        <div class="live-actions">
+          <button id="sendPlayRequest" class="cta">Send Request</button>
+          <p id="playSummary" class="copy-status" aria-live="polite"></p>
+        </div>
+        <pre id="playResponse" class="play-response"><code>{
+  "message": "Response will appear here"
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="what-is-api" class="section card reveal">
+      <h2>1) What Is an API? Think Like an Engineer</h2>
+      <p>An API (Application Programming Interface) allows software systems to communicate through request and response.</p>
+      <div class="flow" role="img" aria-label="Simple request response flow">
+        <div>Student App / Web UI</div>
+        <span>HTTP Request</span>
+        <div>REST API</div>
+        <span>Read / Write Data</span>
+        <div>Database</div>
+        <span>HTTP Response (JSON)</span>
+        <div>Student App / Web UI</div>
+      </div>
+      <p>
+        Example: A student clicks Apply. The app sends a request to the API. The API validates the student, checks eligibility,
+        saves the application, and returns a result.
+      </p>
+    </section>
+
+    <section id="rest-language" class="section card reveal">
+      <h2>2) REST: The Language of This Challenge</h2>
+      <p>REST represents resources as URLs and uses HTTP methods to perform operations.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>HTTP Method</th>
+              <th>Purpose</th>
+              <th>Placement Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GET</td>
+              <td>Read data</td>
+              <td>Get all placement drives</td>
+            </tr>
+            <tr>
+              <td>POST</td>
+              <td>Create data</td>
+              <td>Create a new application</td>
+            </tr>
+            <tr>
+              <td>PUT / PATCH</td>
+              <td>Update data</td>
+              <td>Update application status</td>
+            </tr>
+            <tr>
+              <td>DELETE</td>
+              <td>Remove data</td>
+              <td>Delete a test record</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Pro mindset: Verify method, URL, headers, body, status code, response body, response time, and error behavior.</p>
+    </section>
+
+    <section id="postman-setup" class="section card reveal">
+      <h2>3) Step 1 - Install and Understand Postman</h2>
+      <p>Create a Postman collection named <strong>SPSU API Testing Championship</strong>.</p>
+      <div class="pill-list">
+        <span>01_GET_Requests</span>
+        <span>02_POST_Requests</span>
+        <span>03_UPDATE_Requests</span>
+        <span>04_DELETE_Requests</span>
+        <span>05_Negative_Testing</span>
+      </div>
+      <p>Use a safe public API for practice: <strong>JSONPlaceholder</strong>.</p>
+    </section>
+
+    <section id="requests" class="section card reveal">
+      <h2>4) Step 2 - Understand a Request</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Part</th>
+              <th>What to Check</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Method</td><td>GET, POST, PUT, PATCH, DELETE</td></tr>
+            <tr><td>URL</td><td>The endpoint under test</td></tr>
+            <tr><td>Parameters</td><td>Optional filters or values in URL</td></tr>
+            <tr><td>Headers</td><td>Metadata like Content-Type, Authorization</td></tr>
+            <tr><td>Body</td><td>Data sent to server, usually JSON</td></tr>
+            <tr><td>Response</td><td>Status, headers, response time, response body</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section card reveal">
+      <h2>5) Step 3 - Your First GET Request</h2>
+      <pre><code>Method: GET
+URL: https://jsonplaceholder.typicode.com/posts</code></pre>
+      <ul>
+        <li>Is status code successful?</li>
+        <li>Is response body valid JSON?</li>
+        <li>Is response an array?</li>
+        <li>Do objects contain fields like id and title?</li>
+        <li>What is response time?</li>
+      </ul>
+    </section>
+
+    <section class="section card reveal">
+      <h2>6) Step 4 - Test a POST Request</h2>
+      <pre><code>Method: POST
+URL: https://jsonplaceholder.typicode.com/posts
+Header: Content-Type: application/json
+
+Body:
+{
+  "title": "SPSU Placement Application",
+  "body": "Student application created during API Testing War Arena",
+  "userId": 101
+}</code></pre>
+      <p>Verify body format, status code, and expected response data.</p>
+    </section>
+
+    <section class="section card reveal">
+      <h2>7) Step 5 - Test UPDATE and DELETE Operations</h2>
+      <div class="split">
+        <div>
+          <h3>PATCH Example</h3>
+          <pre><code>Method: PATCH
+URL: https://jsonplaceholder.typicode.com/posts/1
+Header: Content-Type: application/json
+
+Body:
+{
+  "title": "Updated Placement Application"
+}</code></pre>
+        </div>
+        <div>
+          <h3>DELETE Example</h3>
+          <pre><code>Method: DELETE
+URL: https://jsonplaceholder.typicode.com/posts/1</code></pre>
+        </div>
+      </div>
+      <p class="note">Professional question: If resource does not exist, what status code and error format should API return?</p>
+    </section>
+
+    <section id="status-codes" class="section card reveal">
+      <h2>8) Step 6 - Most Important Status Codes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Testing Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>200</td><td>OK</td><td>Request succeeded</td></tr>
+            <tr><td>201</td><td>Created</td><td>New resource created successfully</td></tr>
+            <tr><td>400</td><td>Bad Request</td><td>Client sent invalid data</td></tr>
+            <tr><td>401</td><td>Unauthorized</td><td>Auth missing or invalid</td></tr>
+            <tr><td>403</td><td>Forbidden</td><td>User is not allowed</td></tr>
+            <tr><td>404</td><td>Not Found</td><td>Requested resource does not exist</td></tr>
+            <tr><td>500</td><td>Server Error</td><td>Unexpected server-side failure</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Placement tip: Interviewers value your reasoning for expected behavior more than memorization.</p>
+    </section>
+
+    <section id="automation" class="section card reveal">
+      <h2>9) Step 7 - Add Automated Tests in Postman</h2>
+      <pre><code>pm.test("Status code is successful", function () {
+  pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+});
+
+pm.test("Response time is below 1000 ms", function () {
+  pm.expect(pm.response.responseTime).to.be.below(1000);
+});
+
+pm.test("Response body is JSON", function () {
+  pm.response.to.have.jsonBody();
+});
+
+const data = pm.response.json();
+pm.test("Response contains an id", function () {
+  pm.expect(data).to.have.property("id");
+});</code></pre>
+    </section>
+
+    <section id="negative-testing" class="section card reveal">
+      <h2>10) Step 8 - Negative Testing</h2>
+      <p>A placement-ready engineer tests how systems fail, not only how they pass.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Example</th>
+              <th>Expected Behavior</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Missing field</td><td>POST without required value</td><td>400 + meaningful validation message</td></tr>
+            <tr><td>Invalid format</td><td>Email malformed</td><td>Validation error</td></tr>
+            <tr><td>Missing resource</td><td>GET unknown ID</td><td>404 + useful response</td></tr>
+            <tr><td>Duplicate action</td><td>Apply twice</td><td>Business-rule error</td></tr>
+            <tr><td>Unauthorized</td><td>No valid credentials</td><td>401/403 based on design</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="industry-pack" class="section card reveal">
+      <h2>11) Industry Challenge - Design an API Test Pack</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Request</th>
+              <th>Method</th>
+              <th>What to Test</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>List placement drives</td><td>GET</td><td>200, response structure, empty result case</td></tr>
+            <tr><td>Get one drive</td><td>GET</td><td>200 valid ID, 404 invalid ID</td></tr>
+            <tr><td>Create application</td><td>POST</td><td>Valid body, required fields, duplicate application</td></tr>
+            <tr><td>Update application status</td><td>PATCH</td><td>Valid transitions, invalid status handling</td></tr>
+            <tr><td>Delete test record</td><td>DELETE</td><td>Success response and missing resource behavior</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section card reveal">
+      <h2>12) API Test Case Template</h2>
+      <pre><code>TEST CASE ID:
+FEATURE:
+ENDPOINT:
+METHOD:
+PRE-CONDITION:
+REQUEST:
+- URL:
+- Headers:
+- Parameters:
+- Body:
+EXPECTED STATUS CODE:
+EXPECTED RESPONSE:
+TEST ASSERTIONS:
+1.
+2.
+3.
+NEGATIVE TEST:
+ACTUAL RESULT:
+PASS / FAIL</code></pre>
+      <button id="copyTemplate" class="cta">Copy Template</button>
+      <p id="copyStatus" class="copy-status" aria-live="polite"></p>
+    </section>
+
+    <section class="section card reveal">
+      <h2>13) Bonus Practice - E-Commerce Cart API</h2>
+      <ul>
+        <li>Test valid item addition.</li>
+        <li>Test invalid product ID.</li>
+        <li>Test quantity = 0 and negative quantity.</li>
+        <li>Test removing an item that is not in cart.</li>
+        <li>Write at least three automated assertions.</li>
+      </ul>
+    </section>
+
+    <section class="section card reveal">
+      <h2>14) LinkedIn Proof of Work</h2>
+      <p>Take a screenshot of your Postman collection or successful tests. Use this draft and personalize it:</p>
+      <blockquote>
+        API TESTING WAR ARENA | SPSU UDAIPUR CHAMPIONSHIP
+        <br><br>
+        Today, I explored what happens behind the frontend. I worked with REST APIs and Postman to understand how applications communicate through HTTP requests and JSON responses.
+        <br><br>
+        My hands-on learning included GET, POST, PATCH, DELETE, request headers, JSON bodies, status codes, response validation, automated assertions, and negative testing.
+        <br><br>
+        One major learning: Testing is not only about proving that an API works. A professional tester asks what happens with invalid input, missing data, missing resources, and business rule violations.
+        <br><br>
+        #SPSUChampionship #Udaipur #Postman #APITesting #RESTAPI #SoftwareTesting #HTTP #PlacementReadiness #LearningByDoing
+      </blockquote>
+    </section>
+
+    <section class="section card reveal">
+      <h2>15) Placement Readiness Value Addition</h2>
+      <div class="pill-list">
+        <span>Backend Understanding</span>
+        <span>REST Fundamentals</span>
+        <span>Testing Mindset</span>
+        <span>Debugging</span>
+        <span>Automation Basics</span>
+        <span>Project Readiness</span>
+        <span>Interview Story</span>
+      </div>
+      <p>
+        You learn to validate success, failure, and edge cases, inspect requests and responses, write repeatable assertions,
+        and explain a real testing workflow in interviews.
+      </p>
+    </section>
+
+    <section id="interview" class="section card reveal">
+      <h2>16) Interview Questions to Practice</h2>
+      <ol>
+        <li>What is a REST API?</li>
+        <li>Explain the difference between GET and POST.</li>
+        <li>When would you expect 201 instead of 200?</li>
+        <li>What is the purpose of headers in an HTTP request?</li>
+        <li>How do you test an API response in Postman?</li>
+        <li>What is negative testing? Give an example.</li>
+        <li>How would you test a duplicate application business rule?</li>
+        <li>What is the difference between a client error and a server error?</li>
+      </ol>
+    </section>
+
+    <section id="checklist" class="section card reveal">
+      <h2>17) Final Championship Submission Checklist</h2>
+      <div class="checklist" id="checklistBox">
+        <label><input type="checkbox"> Postman workspace/collection created</label>
+        <label><input type="checkbox"> GET request tested and response inspected</label>
+        <label><input type="checkbox"> POST request tested with JSON body</label>
+        <label><input type="checkbox"> UPDATE request tested</label>
+        <label><input type="checkbox"> DELETE request tested</label>
+        <label><input type="checkbox"> Status codes documented</label>
+        <label><input type="checkbox"> At least three automated tests written</label>
+        <label><input type="checkbox"> At least three negative scenarios considered</label>
+        <label><input type="checkbox"> Industry API test pack designed</label>
+        <label><input type="checkbox"> Bonus challenge attempted</label>
+        <label><input type="checkbox"> LinkedIn proof-of-work post published</label>
+      </div>
+      <p class="champ-message">
+        Championship Message: A placement-ready engineer does not assume software works. They ask systems questions,
+        inspect answers, test edge cases, and communicate results clearly.
+      </p>
+    </section>
+  </main>
+
+  <footer class="section footer reveal">
+    <p>SPSU Udaipur Championship - API Testing War Arena - Postman & REST</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
