@@ -1,4 +1,6 @@
 const sections = document.querySelectorAll('.reveal');
+const progressBar = document.getElementById('scrollProgress');
+const navLinks = document.querySelectorAll('.sticky-nav a[href^="#"]');
 
 const observer = new IntersectionObserver(
   (entries) => {
@@ -19,6 +21,54 @@ sections.forEach((section, i) => {
   section.style.transitionDelay = `${Math.min(i * 40, 180)}ms`;
   observer.observe(section);
 });
+
+function updateScrollProgress() {
+  if (!progressBar) {
+    return;
+  }
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  progressBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+}
+
+const sectionTargets = [];
+navLinks.forEach((link) => {
+  const id = link.getAttribute('href');
+  if (!id) {
+    return;
+  }
+  const section = document.querySelector(id);
+  if (section) {
+    sectionTargets.push({ link, section });
+  }
+});
+
+function updateActiveNav() {
+  if (!sectionTargets.length) {
+    return;
+  }
+
+  const anchor = window.scrollY + 140;
+  let active = sectionTargets[0].link;
+
+  sectionTargets.forEach(({ link, section }) => {
+    if (anchor >= section.offsetTop) {
+      active = link;
+    }
+  });
+
+  navLinks.forEach((link) => link.classList.remove('active'));
+  active.classList.add('active');
+  active.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+
+window.addEventListener('scroll', () => {
+  updateScrollProgress();
+  updateActiveNav();
+});
+
+updateScrollProgress();
+updateActiveNav();
 
 const template = `TEST CASE ID:
 FEATURE:
